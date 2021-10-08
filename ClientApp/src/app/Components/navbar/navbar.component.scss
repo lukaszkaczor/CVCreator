@@ -1,0 +1,21 @@
+header {
+  height: 75px;
+  width: 100%;
+  font-size: 20px;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  width: 95%;
+  margin: 0 auto;
+  border: 1px solid red;
+}
+
+.logo {
+  &__text {
+    font-family: "Oswald", sans-serif;
+    font-size: 1.5em;
+  }
+}
