@@ -1,0 +1,59 @@
+<form action="" [formGroup]="form">
+  <div class="caption">
+    <h1 class="caption__text">Dane personalne</h1>
+  </div>
+
+  <div class="input-group">
+    <label for="name" class="input-group__label">Imię</label>
+    <input type="text" class="input-group__input" formControlName="firstName" />
+
+    <div
+      class="input-group__warnings"
+      *ngIf="firstName.touched && firstName.invalid"
+    >
+      <small *ngIf="firstName.errors.required">To pole jest wymagane.</small>
+      <small *ngIf="firstName.errors.minlength"
+        >Nazwa stanowiska musi zawierać przynajmniej
+        {{ firstName.errors.minlength.requiredLength }}
+        znaków.</small
+      >
+    </div>
+  </div>
+
+  <div class="input-group">
+    <label for="name" class="input-group__label">Nazwisko</label>
+    <input type="text" class="input-group__input" formControlName="lastName" />
+
+    <div
+      class="input-group__warnings"
+      *ngIf="lastName.touched && lastName.invalid"
+    >
+      <small *ngIf="lastName.errors.required">To pole jest wymagane.</small>
+      <small *ngIf="lastName.errors.minlength"
+        >Nazwa stanowiska musi zawierać przynajmniej
+        {{ lastName.errors.minlength.requiredLength }}
+        znaków.</small
+      >
+    </div>
+  </div>
+
+  <div class="input-group">
+    <label for="name" class="input-group__label">Data urodzenia</label>
+    <input
+      type="date"
+      class="input-group__input"
+      formControlName="dateOfBirth"
+    />
+
+    <div
+      class="input-group__warnings"
+      *ngIf="dateOfBirth.touched && dateOfBirth.invalid"
+    >
+      <small *ngIf="dateOfBirth.errors.required">To pole jest wymagane.</small>
+    </div>
+  </div>
+
+  <div class="input-group">
+    <button class="input-group__button--save" (click)="submit()">Zapisz</button>
+  </div>
+</form>

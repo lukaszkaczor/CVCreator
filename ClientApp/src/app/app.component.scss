@@ -1,0 +1,28 @@
+.container {
+  display: flex;
+  margin: 75px auto 0 auto;
+  min-height: calc(100vh - 75px);
+
+  width: 90%;
+}
+
+.content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: 25px;
+  min-height: calc(100% - 25px);
+  border: 1px solid red;
+}
+
+@media (min-width: 992px) {
+  .container {
+    width: 900px;
+  }
+}
+@media (min-width: 1200px) {
+  .container {
+    width: 1150px;
+  }
+}

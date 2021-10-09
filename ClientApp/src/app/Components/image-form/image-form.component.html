@@ -1,0 +1,35 @@
+<form [formGroup]="formTest">
+  <div class="caption">
+    <h1 class="caption__text">Twoje zdjęcie</h1>
+  </div>
+
+  <div class="input-group">
+    <div class="input-group__image-box">
+      <img
+        class="input-group__image"
+        src="https://st.depositphotos.com/2101611/3925/v/600/depositphotos_39258143-stock-illustration-businessman-avatar-profile-picture.jpg"
+        alt="image"
+        #image
+      />
+    </div>
+
+    <label for="file-upload" class="input-group__label--file"
+      >Wgraj zdjęcie z dysku</label
+    >
+    <input
+      #imageInput
+      type="file"
+      id="file-upload"
+      accept="image/x-png,image/jpeg"
+      class="input-group__input--file"
+      formControlName="image"
+      (change)="onFileSelected($event)"
+    />
+  </div>
+
+  <div class="input-group">
+    <button class="input-group__label--file" (click)="deleteImage()">
+      Delete
+    </button>
+  </div>
+</form>
