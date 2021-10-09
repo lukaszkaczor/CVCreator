@@ -1,7 +1,42 @@
-<header>
-  <div class="nav">
-    <div class="logo">
-      <h3 class="logo__text">Cv Creator</h3>
+<div class="navbar">
+  <nav>
+    <div class="navbar__logo">
+      <h3 class="navbar__logo__text">CV Creator</h3>
     </div>
-  </div>
-</header>
+
+    <div class="navbar__menu" [class.navbar__menu--active]="isActive">
+      <ul class="navbar__navigation">
+        <li class="navbar__item">
+          <a href="" class="navbar__link">Home</a>
+        </li>
+        <li class="navbar__item">
+          <a href="" class="navbar__link">About</a>
+        </li>
+        <li class="navbar__item">
+          <a href="" class="navbar__link">Create CV</a>
+        </li>
+      </ul>
+
+      <ul class="navbar__profile">
+        <li class="navbar__item">
+          <a href="" class="navbar__link">Profile</a>
+        </li>
+        <li class="navbar__item">
+          <a href="" class="navbar__link navbar__link--logout">Logout</a>
+        </li>
+      </ul>
+    </div>
+
+    <label for="check">
+      <input
+        type="checkbox"
+        id="check"
+        [checked]="isActive"
+        (click)="toggleMenu()"
+      />
+      <span></span>
+      <span></span>
+      <span></span>
+    </label>
+  </nav>
+</div>
