@@ -13,7 +13,9 @@
       />
     </div>
 
-    <label for="file-upload" class="input-group__label--file"
+    <label
+      for="file-upload"
+      class="input-group__label--file input-group__button--save"
       >Wgraj zdjęcie z dysku</label
     >
     <input
@@ -28,8 +30,8 @@
   </div>
 
   <div class="input-group">
-    <button class="input-group__label--file" (click)="deleteImage()">
-      Delete
+    <button class="input-group__button--save" (click)="deleteImage()">
+      Usuń
     </button>
   </div>
 </form>

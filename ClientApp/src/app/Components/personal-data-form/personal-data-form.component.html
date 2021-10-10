@@ -8,7 +8,7 @@
     <input type="text" class="input-group__input" formControlName="firstName" />
 
     <div
-      class="input-group__warnings"
+      class="input-group__warning"
       *ngIf="firstName.touched && firstName.invalid"
     >
       <small *ngIf="firstName.errors.required">To pole jest wymagane.</small>
@@ -25,7 +25,7 @@
     <input type="text" class="input-group__input" formControlName="lastName" />
 
     <div
-      class="input-group__warnings"
+      class="input-group__warning"
       *ngIf="lastName.touched && lastName.invalid"
     >
       <small *ngIf="lastName.errors.required">To pole jest wymagane.</small>
@@ -46,7 +46,7 @@
     />
 
     <div
-      class="input-group__warnings"
+      class="input-group__warning"
       *ngIf="dateOfBirth.touched && dateOfBirth.invalid"
     >
       <small *ngIf="dateOfBirth.errors.required">To pole jest wymagane.</small>

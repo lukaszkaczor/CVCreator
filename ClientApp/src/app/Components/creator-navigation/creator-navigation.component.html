@@ -1,0 +1,16 @@
+<nav>
+  <div class="link-group">
+    <a
+      routerLink="{{ prevPage }}"
+      class="link-group__link link-group__link--previous"
+      *ngIf="prevPage != null"
+      >Wróć</a
+    >
+    <a
+      routerLink="{{ nextPage }}"
+      class="link-group__link link-group__link--next"
+      *ngIf="nextPage != null"
+      >Dalej</a
+    >
+  </div>
+</nav>

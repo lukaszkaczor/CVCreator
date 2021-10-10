@@ -16,6 +16,10 @@ import { ProgressbarComponent } from "./Components/progressbar/progressbar.compo
 import { PersonalDataFormComponent } from "./Components/personal-data-form/personal-data-form.component";
 import { ImageFormComponent } from "./Components/image-form/image-form.component";
 import { CookieService } from "ngx-cookie-service";
+import { AddressFormComponent } from './Components/address-form/address-form.component';
+import { ContactFormComponent } from './Components/contact-form/contact-form.component';
+import { CreatorNavigationComponent } from './Components/creator-navigation/creator-navigation.component';
+import { FooterComponent } from './Components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +31,10 @@ import { CookieService } from "ngx-cookie-service";
     ProgressbarComponent,
     PersonalDataFormComponent,
     ImageFormComponent,
+    AddressFormComponent,
+    ContactFormComponent,
+    CreatorNavigationComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: "ng-cli-universal" }),

@@ -1,0 +1,43 @@
+<form [formGroup]="form">
+  <div class="caption">
+    <h1 class="caption__text">Dane kontaktowe</h1>
+  </div>
+
+  <div class="input-group">
+    <label for="phoneNumber" class="input-group__label">Telefon</label>
+    <input
+      type="text"
+      class="input-group__input"
+      formControlName="phoneNumber"
+    />
+
+    <div
+      class="input-group__warning"
+      *ngIf="phoneNumber.touched && phoneNumber.invalid"
+    >
+      <small *ngIf="phoneNumber.errors.required">To pole jest wymagane.</small>
+      <small *ngIf="phoneNumber.errors.minlength"
+        >Nazwa stanowiska musi zawierać przynajmniej
+        {{ phoneNumber.errors.minlength.requiredLength }}
+        znaków.</small
+      >
+    </div>
+  </div>
+
+  <div class="input-group">
+    <label for="email" class="input-group__label">Email</label>
+    <input type="text" class="input-group__input" formControlName="email" />
+
+    <div class="input-group__warning" *ngIf="email.touched && email.invalid">
+      <small *ngIf="email.errors.required">To pole jest wymagane.</small>
+      <small *ngIf="email.errors.minlength"
+        >Nazwa stanowiska musi zawierać przynajmniej
+        {{ email.errors.minlength.requiredLength }}
+        znaków.</small
+      >
+    </div>
+  </div>
+  <div class="input-group">
+    <button class="input-group__button--save" (click)="submit()">Zapisz</button>
+  </div>
+</form>

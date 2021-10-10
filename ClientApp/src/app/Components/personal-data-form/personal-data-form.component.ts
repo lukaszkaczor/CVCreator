@@ -8,6 +8,7 @@ import { Component, OnInit } from "@angular/core";
 })
 export class PersonalDataFormComponent implements OnInit {
   form: FormGroup;
+
   constructor(builder: FormBuilder) {
     this.form = builder.group({
       firstName: ["", [Validators.required, Validators.minLength(2)]],
