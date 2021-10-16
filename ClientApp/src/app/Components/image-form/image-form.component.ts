@@ -12,6 +12,7 @@ import { FormBuilder, FormGroup } from "@angular/forms";
 export class ImageFormComponent implements OnInit {
   // @ViewChild("imageInput", { static: false }) imageFile: HTMLInputElement;
   @ViewChild("image", { static: false }) image: ElementRef;
+  showDeleteButton = false;
 
   // imgData = null;
   private _converter: IImageConverter = new ImageConverter();
@@ -34,10 +35,12 @@ export class ImageFormComponent implements OnInit {
     this.image.nativeElement.src = await this._converter.Encode(
       event.target.files[0]
     );
+    this.showDeleteButton = true;
   }
 
-  deleteImage() {
-    this.image.nativeElement.src = "../../../assets/profile_placeholder.jpg";
+  async deleteImage() {
     this.formTest.reset();
+    this.image.nativeElement.src = "../../../assets/profile_placeholder.jpg";
+    this.showDeleteButton = false;
   }
 }

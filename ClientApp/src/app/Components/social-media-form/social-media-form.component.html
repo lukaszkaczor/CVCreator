@@ -1,0 +1,35 @@
+<form action="" [formGroup]="form" class="form">
+  <div class="caption">
+    <h1 class="caption__text">Media społecznościowe</h1>
+  </div>
+
+  <div class="input-group">
+    <label for="name" class="input-group__label">Serwis *</label>
+    <input
+      type="text"
+      class="input-group__input"
+      formControlName="socialMedia"
+    />
+
+    <div
+      class="input-group__warning"
+      *ngIf="socialMedia.touched && socialMedia.invalid"
+    >
+      <small *ngIf="socialMedia.errors.required">To pole jest wymagane.</small>
+    </div>
+  </div>
+
+  <div class="input-group">
+    <label for="name" class="input-group__label">Link *</label>
+    <input type="text" class="input-group__input" formControlName="link" />
+
+    <div class="input-group__warning" *ngIf="link.touched && link.invalid">
+      <small *ngIf="link.errors.required">To pole jest wymagane.</small>
+    </div>
+  </div>
+  <div class="input-group">
+    <button class="input-group__button--save">Dodaj</button>
+  </div>
+</form>
+
+<div class="item-list"></div>

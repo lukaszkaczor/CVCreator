@@ -1,3 +1,4 @@
+import { AppRoutingModule } from "./app-routing.module";
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
@@ -16,10 +17,12 @@ import { ProgressbarComponent } from "./Components/progressbar/progressbar.compo
 import { PersonalDataFormComponent } from "./Components/personal-data-form/personal-data-form.component";
 import { ImageFormComponent } from "./Components/image-form/image-form.component";
 import { CookieService } from "ngx-cookie-service";
-import { AddressFormComponent } from './Components/address-form/address-form.component';
-import { ContactFormComponent } from './Components/contact-form/contact-form.component';
-import { CreatorNavigationComponent } from './Components/creator-navigation/creator-navigation.component';
-import { FooterComponent } from './Components/footer/footer.component';
+import { AddressFormComponent } from "./Components/address-form/address-form.component";
+import { ContactFormComponent } from "./Components/contact-form/contact-form.component";
+import { CreatorNavigationComponent } from "./Components/creator-navigation/creator-navigation.component";
+import { FooterComponent } from "./Components/footer/footer.component";
+import { BasicInfoComponent } from './Components/basic-info/basic-info.component';
+import { SocialMediaFormComponent } from './Components/social-media-form/social-media-form.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +38,8 @@ import { FooterComponent } from './Components/footer/footer.component';
     ContactFormComponent,
     CreatorNavigationComponent,
     FooterComponent,
+    BasicInfoComponent,
+    SocialMediaFormComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: "ng-cli-universal" }),
@@ -42,15 +47,16 @@ import { FooterComponent } from './Components/footer/footer.component';
     FormsModule,
     ReactiveFormsModule,
     ApiAuthorizationModule,
-    RouterModule.forRoot([
-      { path: "", component: HomeComponent, pathMatch: "full" },
-      { path: "counter", component: CounterComponent },
-      {
-        path: "fetch-data",
-        component: FetchDataComponent,
-        canActivate: [AuthorizeGuard],
-      },
-    ]),
+    AppRoutingModule,
+    // RouterModule.forRoot([
+    //   { path: "", component: HomeComponent, pathMatch: "full" },
+    //   { path: "counter", component: CounterComponent },
+    //   {
+    //     path: "fetch-data",
+    //     component: FetchDataComponent,
+    //     canActivate: [AuthorizeGuard],
+    //   },
+    // ]),
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true },
