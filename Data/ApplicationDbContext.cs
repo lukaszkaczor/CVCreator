@@ -1,4 +1,5 @@
-﻿using CvCreator.Models;
+﻿using CvCreator.Data.Configuration;
+using CvCreator.Models;
 using IdentityServer4.EntityFramework.Options;
 using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using Microsoft.EntityFrameworkCore;
@@ -12,12 +13,21 @@ namespace CvCreator.Data
 {
     public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>
     {
-        public DbSet<CurriculumVitae> CvList { get; set; }
+        // public DbSet<CurriculumVitae> CvList { get; set; }
+        // public DbSet<SocialMedia> SocialMedia { get; set; }
+        public DbSet<Address> Addresses { get; set; }
 
         public ApplicationDbContext(
             DbContextOptions options,
             IOptions<OperationalStoreOptions> operationalStoreOptions) : base(options, operationalStoreOptions)
         {
+        }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+            builder.ApplyConfiguration(new AddressConfiguration());
+
         }
     }
 }
