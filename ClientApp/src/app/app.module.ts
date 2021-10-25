@@ -23,6 +23,8 @@ import { CreatorNavigationComponent } from "./Components/creator-navigation/crea
 import { FooterComponent } from "./Components/footer/footer.component";
 import { BasicInfoComponent } from './Components/basic-info/basic-info.component';
 import { SocialMediaFormComponent } from './Components/social-media-form/social-media-form.component';
+import { ExperiencePageComponent } from './Components/experience-page/experience-page.component';
+import { WorkExperienceComponent } from './Components/work-experience/work-experience.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +42,8 @@ import { SocialMediaFormComponent } from './Components/social-media-form/social-
     FooterComponent,
     BasicInfoComponent,
     SocialMediaFormComponent,
+    ExperiencePageComponent,
+    WorkExperienceComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: "ng-cli-universal" }),

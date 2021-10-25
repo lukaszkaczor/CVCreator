@@ -1,0 +1,50 @@
+@import "../../../assets/Styles/forms.scss";
+
+.box--absolute {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background: rgba($color: #000000, $alpha: 0.7);
+
+  z-index: 999;
+
+  .box__content {
+    width: 90%;
+    //   display: flex;
+    //   justify-content: center;
+    //   align-items: center;
+  }
+}
+
+.display--none {
+  display: none;
+}
+
+.form--background {
+  padding: 4rem 0;
+  background-color: whitesmoke;
+}
+
+@media (min-width: 992px) {
+  .box--absolute {
+    //   width: 900px;
+
+    .box__content {
+      width: 75%;
+    }
+  }
+}
+@media (min-width: 1200px) {
+  .box--absolute {
+    //   width: 1150px;
+
+    .box__content {
+      width: 65%;
+    }
+  }
+}

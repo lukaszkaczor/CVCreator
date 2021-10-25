@@ -1,0 +1,148 @@
+<button class="input-group__button--save" (click)="toggleForm()">
+  Dodaj pozycję
+</button>
+
+<div class="box--absolute" [class.display--none]="!showForm">
+  <div class="box__content">
+    <form class="form form--background" [formGroup]="form">
+      <button class="input-group__button--save" (click)="toggleForm()">
+        X
+      </button>
+      <div class="caption">
+        <h1 class="caption__text">Doświadczenie zawodowe</h1>
+      </div>
+
+      <div class="input-group">
+        <label for="jobTitle" class="input-group__label">Stanowisko</label>
+        <input
+          type="text"
+          class="input-group__input"
+          formControlName="jobTitle"
+        />
+
+        <!-- <div
+          class="input-group__warning"
+          *ngIf="firstName.touched && firstName.invalid"
+        >
+          <small *ngIf="firstName.errors.required"
+            >To pole jest wymagane.</small
+          >
+          <small *ngIf="firstName.errors.minlength"
+            >Nazwa stanowiska musi zawierać przynajmniej
+            {{ firstName.errors.minlength.requiredLength }}
+            znaków.</small
+          >
+        </div> -->
+      </div>
+
+      <div class="input-group">
+        <label for="companyName" class="input-group__label">Firma</label>
+        <input
+          type="text"
+          class="input-group__input"
+          formControlName="companyName"
+        />
+
+        <!-- <div
+          class="input-group__warning"
+          *ngIf="firstName.touched && firstName.invalid"
+        >
+          <small *ngIf="firstName.errors.required"
+            >To pole jest wymagane.</small
+          >
+          <small *ngIf="firstName.errors.minlength"
+            >Nazwa stanowiska musi zawierać przynajmniej
+            {{ firstName.errors.minlength.requiredLength }}
+            znaków.</small
+          >
+        </div> -->
+      </div>
+
+      <div class="input-group">
+        <label for="location" class="input-group__label">Lokalizacja</label>
+        <input
+          type="text"
+          class="input-group__input"
+          formControlName="location"
+        />
+
+        <!-- <div
+          class="input-group__warning"
+          *ngIf="firstName.touched && firstName.invalid"
+        >
+          <small *ngIf="firstName.errors.required"
+            >To pole jest wymagane.</small
+          >
+          <small *ngIf="firstName.errors.minlength"
+            >Nazwa stanowiska musi zawierać przynajmniej
+            {{ firstName.errors.minlength.requiredLength }}
+            znaków.</small
+          >
+        </div> -->
+      </div>
+
+      <div class="input-group">
+        <label for="startDate" class="input-group__label"
+          >Data rozpoczęcia</label
+        >
+        <input
+          type="date"
+          class="input-group__input"
+          formControlName="startDate"
+        />
+
+        <!-- <div
+          class="input-group__warning"
+          *ngIf="firstName.touched && firstName.invalid"
+        >
+          <small *ngIf="firstName.errors.required"
+            >To pole jest wymagane.</small
+          >
+          <small *ngIf="firstName.errors.minlength"
+            >Nazwa stanowiska musi zawierać przynajmniej
+            {{ firstName.errors.minlength.requiredLength }}
+            znaków.</small
+          >
+        </div> -->
+      </div>
+
+      <div class="input-group">
+        <label for="endDate" class="input-group__label">Data zakończenia</label>
+        <input
+          type="date"
+          class="input-group__input"
+          formControlName="endDate"
+        />
+
+        <!-- <div
+          class="input-group__warning"
+          *ngIf="firstName.touched && firstName.invalid"
+        >
+          <small *ngIf="firstName.errors.required"
+            >To pole jest wymagane.</small
+          >
+          <small *ngIf="firstName.errors.minlength"
+            >Nazwa stanowiska musi zawierać przynajmniej
+            {{ firstName.errors.minlength.requiredLength }}
+            znaków.</small
+          >
+        </div> -->
+      </div>
+
+      <div class="input-group">
+        <label for="stillWorking" class="input-group__label"
+          >Nadal pracuję</label
+        >
+        <input
+          type="checkbox"
+          class="input-group__input"
+          formControlName="stillWorking"
+        />
+      </div>
+
+      <div class="input-group">
+        <button class="input-group__button--save">Zapisz</button>
+      </div>
+    </form>
+  </div>
+</div>
