@@ -1,5 +1,5 @@
 export interface IDataManager {
-  save(key: string, value: string);
-  edit(key: string, value: string);
+  save(key: string, value: string): Promise<any>;
+  edit(key: string, value: string): Promise<any>;
   delete(key: string);
 }

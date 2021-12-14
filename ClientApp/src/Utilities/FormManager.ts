@@ -1,30 +1,28 @@
-import { IKeyValue } from "./Interfaces/IKeyValue";
 import { IDataManager } from "./Interfaces/IDataManger";
-import { CookieService } from "ngx-cookie-service";
 import { FormGroup } from "@angular/forms";
-import { JsonFormatter } from "tslint/lib/formatters";
 
 export class FormManager {
+  private formMarker: string;
   private dataServices: IDataManager[];
   protected form: FormGroup;
   protected formIsSubmitted: boolean = false;
+  public waiting = true;
 
   // list of services
-  constructor(private cookies: CookieService, ...dataServices: IDataManager[]) {
+  constructor(formMarker: string, ...dataServices: IDataManager[]) {
+    this.formMarker = formMarker;
     this.dataServices = dataServices;
-    console.log(dataServices[0]);
   }
 
   public async submit() {
-    let value = this.form.value;
-    console.log(JSON.stringify(value));
-    let jsn = JSON.stringify(value);
-    console.log(JSON.parse(jsn));
-    // const data = this.getData();
-    // console.log(JSON.parse(this.form.value));
     if (this.formIsValid()) {
-      //save data as cookies
-      // this.runDataServices(data);
+      this.waiting = false;
+
+      this.runDataServices(this.getData()).then((response: boolean) => {
+        this.waiting = response;
+        console.log(response);
+      });
+
       // submit
     } else {
       // stop
@@ -32,32 +30,25 @@ export class FormManager {
   }
 
   //DATA TO JSON
-  protected async runDataServices(data: IKeyValue[]) {
-    this.dataServices.forEach(async (service) => {
-      await service.save("key", "value");
-      console.log("finish");
+  protected runDataServices(data): Promise<boolean> {
+    return new Promise((resolve, rejects) => {
+      for (let i = 0; i < this.dataServices.length; i++) {
+        const service = this.dataServices[i];
+
+        service.save(this.formMarker, data).then((data) => {
+          console.log(data);
+
+          if (i == this.dataServices.length - 1) resolve(true);
+        });
+      }
     });
+  }
+
+  getData() {
+    return JSON.stringify(this.form.value);
   }
 
   protected formIsValid(): boolean {
     return this.form.valid;
-  }
-
-  getData(): IKeyValue[] {
-    let dataList: IKeyValue[] = [];
-    const keys = Object.keys(this.form.value);
-    const values = Object.values(this.form.value);
-
-    if (keys.length != values.length) {
-      alert("FormManager.ts > getData(); keys.lenght != values.length");
-      return dataList;
-    }
-
-    for (let index = 0; index < keys.length; index++) {
-      this.cookies.set(keys[index], values[index] as string);
-      dataList.push({ key: keys[index], value: values[index] });
-    }
-
-    return dataList;
   }
 }

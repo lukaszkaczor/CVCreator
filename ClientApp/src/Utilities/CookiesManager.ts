@@ -15,8 +15,9 @@ export class CookiesManager implements IDataManager {
 
   async save(key: string, value: string) {
     this.cookie.set(key, value);
-    await this.delay(1000);
+    await this.delay(500);
     console.log("save");
+    return this.get(key);
   }
 
   delay(ms: number) {
