@@ -4,14 +4,16 @@ using CvCreator.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CvCreator.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211213215147_AddCurriculumVitaeTable")]
+    partial class AddCurriculumVitaeTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -31,9 +33,6 @@ namespace CvCreator.Data.Migrations
                         .HasMaxLength(128)
                         .HasColumnType("nvarchar(128)");
 
-                    b.Property<int?>("CurriculumVitaeId")
-                        .HasColumnType("int");
-
                     b.Property<string>("HouseNumber")
                         .HasMaxLength(8)
                         .HasColumnType("nvarchar(8)");
@@ -48,10 +47,6 @@ namespace CvCreator.Data.Migrations
                         .HasColumnType("nvarchar(10)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CurriculumVitaeId")
-                        .IsUnique()
-                        .HasFilter("[CurriculumVitaeId] IS NOT NULL");
 
                     b.ToTable("Addresses");
                 });
@@ -132,7 +127,6 @@ namespace CvCreator.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("ApplicationUserId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime?>("DateOfBirth")
@@ -159,6 +153,8 @@ namespace CvCreator.Data.Migrations
                         .HasColumnType("nvarchar(16)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AddressId");
 
                     b.HasIndex("ApplicationUserId");
 
@@ -425,22 +421,17 @@ namespace CvCreator.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("CvCreator.Models.Address", b =>
-                {
-                    b.HasOne("CvCreator.Models.CurriculumVitae", "CurriculumVitae")
-                        .WithOne("Address")
-                        .HasForeignKey("CvCreator.Models.Address", "CurriculumVitaeId");
-
-                    b.Navigation("CurriculumVitae");
-                });
-
             modelBuilder.Entity("CvCreator.Models.CurriculumVitae", b =>
                 {
+                    b.HasOne("CvCreator.Models.Address", "Address")
+                        .WithMany()
+                        .HasForeignKey("AddressId");
+
                     b.HasOne("CvCreator.Models.ApplicationUser", "ApplicationUser")
                         .WithMany()
-                        .HasForeignKey("ApplicationUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ApplicationUserId");
+
+                    b.Navigation("Address");
 
                     b.Navigation("ApplicationUser");
                 });
@@ -494,11 +485,6 @@ namespace CvCreator.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("CvCreator.Models.CurriculumVitae", b =>
-                {
-                    b.Navigation("Address");
                 });
 #pragma warning restore 612, 618
         }

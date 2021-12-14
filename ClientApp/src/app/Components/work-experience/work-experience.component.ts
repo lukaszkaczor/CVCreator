@@ -8,7 +8,7 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./work-experience.component.scss"],
 })
 export class WorkExperienceComponent implements OnInit {
-  showForm = true;
+  showForm = false;
 
   form: FormGroup;
 

@@ -14,7 +14,7 @@ namespace CvCreator.Data
 {
     public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>
     {
-        // public DbSet<CurriculumVitae> CvList { get; set; }
+        public DbSet<CurriculumVitae> CvList { get; set; }
         public DbSet<Address> Addresses { get; set; }
         public DbSet<SocialMedia> SocialMedia { get; set; }
 
@@ -29,6 +29,7 @@ namespace CvCreator.Data
             base.OnModelCreating(builder);
             builder.ApplyConfiguration(new AddressConfiguration());
             builder.ApplyConfiguration(new SocialMediaConfiguration());
+            builder.ApplyConfiguration(new CvListConfiguration());
 
         }
     }

@@ -7,5 +7,8 @@ namespace CvCreator.Models
         public string City { get; set; }
         public string Street { get; set; }
         public string HouseNumber { get; set; }
+
+        public CurriculumVitae CurriculumVitae { get; set; }
+        public int? CurriculumVitaeId { get; set; }
     }
 }

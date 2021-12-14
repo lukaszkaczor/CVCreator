@@ -10,6 +10,10 @@ namespace CvCreator.Data.Configuration
         {
             builder.HasKey(address => address.Id);
 
+            builder.HasOne(d => d.CurriculumVitae)
+            .WithOne(d => d.Address)
+            .HasForeignKey<Address>(d => d.CurriculumVitaeId);
+
             builder.Property(address => address.ZipCode)
             .IsRequired()
             .HasMaxLength(10);

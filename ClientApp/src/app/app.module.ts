@@ -21,10 +21,10 @@ import { AddressFormComponent } from "./Components/address-form/address-form.com
 import { ContactFormComponent } from "./Components/contact-form/contact-form.component";
 import { CreatorNavigationComponent } from "./Components/creator-navigation/creator-navigation.component";
 import { FooterComponent } from "./Components/footer/footer.component";
-import { BasicInfoComponent } from './Components/basic-info/basic-info.component';
-import { SocialMediaFormComponent } from './Components/social-media-form/social-media-form.component';
-import { ExperiencePageComponent } from './Components/experience-page/experience-page.component';
-import { WorkExperienceComponent } from './Components/work-experience/work-experience.component';
+import { BasicInfoComponent } from "./Components/basic-info/basic-info.component";
+import { SocialMediaFormComponent } from "./Components/social-media-form/social-media-form.component";
+import { ExperiencePageComponent } from "./Components/experience-page/experience-page.component";
+import { WorkExperienceComponent } from "./Components/work-experience/work-experience.component";
 
 @NgModule({
   declarations: [
