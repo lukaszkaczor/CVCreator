@@ -1,8 +1,6 @@
 import { ApiManager } from "./../../../Utilities/ApiManager";
-import { IDataManager } from "./../../../Utilities/Interfaces/IDataManger";
 import { CookiesManager } from "./../../../Utilities/CookiesManager";
 import { CookieService } from "ngx-cookie-service";
-
 import { FormManager } from "./../../../Utilities/FormManager";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Component, OnInit } from "@angular/core";
@@ -17,7 +15,7 @@ export class PersonalDataFormComponent extends FormManager implements OnInit {
   constructor(
     builder: FormBuilder,
     cookie: CookieService,
-    dataService: PersonalDataService
+    private dataService: PersonalDataService
   ) {
     super(
       "personalData",
@@ -26,13 +24,15 @@ export class PersonalDataFormComponent extends FormManager implements OnInit {
     );
 
     this.form = builder.group({
-      firstName: ["imie", [Validators.required, Validators.minLength(2)]],
-      lastName: ["nazwisko", [Validators.required, Validators.minLength(2)]],
-      dateOfBirth: ["09-09-1992", [Validators.required]],
+      firstName: ["", [Validators.required, Validators.minLength(2)]],
+      lastName: ["", [Validators.required, Validators.minLength(2)]],
+      dateOfBirth: ["", [Validators.required]],
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.loadForm(new ApiManager(this.dataService));
+  }
 
   get firstName() {
     return this.form.get("firstName");

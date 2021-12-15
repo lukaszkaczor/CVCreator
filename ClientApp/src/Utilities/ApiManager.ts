@@ -1,7 +1,11 @@
 import { PersonalDataService } from "./../app/Services/personal-data.service";
 import { IDataManager } from "./Interfaces/IDataManger";
+
 export class ApiManager implements IDataManager {
   constructor(private api: PersonalDataService) {}
+  get(key: string) {
+    return this.api.getService();
+  }
 
   async save(key: string, value: string) {
     console.log("testapi");
