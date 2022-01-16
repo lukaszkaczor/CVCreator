@@ -1,16 +1,20 @@
+import { IFormManagerOptions } from "./Interfaces/IFormManagerOptions";
+import { IDataFilter } from "./Interfaces/IDataFilter";
 import { IDataManager } from "./Interfaces/IDataManger";
 import { FormGroup } from "@angular/forms";
 
 export class FormManager {
   private formMarker: string;
-  private dataServices: IDataManager[];
+  private _dataServices: IDataManager[];
+  private _filters: IDataFilter[] = [];
   protected form: FormGroup;
   protected formIsSubmitted: boolean = false;
   public waitingForResponse = false;
 
-  constructor(formMarker: string, ...dataServices: IDataManager[]) {
-    this.formMarker = formMarker;
-    this.dataServices = dataServices;
+  constructor(options: IFormManagerOptions) {
+    this.formMarker = options.formMarker;
+    this._dataServices = options.dataServices ? options.dataServices : [];
+    this._filters = options.dataFilters ? options.dataFilters : [];
   }
 
   public async submit() {
@@ -33,40 +37,33 @@ export class FormManager {
   public async loadForm(dataManager: IDataManager) {
     const data = await dataManager.get(this.formMarker);
 
-    console.log(data);
-
-    // const obj = JSON.parse(data);
-
-    this.prepareData(data);
-    // this.form.setValue(data);
-
-    // const cookiesManager: IDataManager = this.dataServices[0];
-    // let cookie = await cookiesManager.get(this.formMarker);
-    // console.log(cookie);
-    // let obj = JSON.parse(cookie);
-    // console.log(obj);
-    // this.form.setValue(obj);
+    this.form.setValue(this.prepareData(data));
   }
 
   prepareData(data) {
     let obj = {};
     const keys = Object.keys(this.form.value);
 
-    // filter
-    // \d+-\d\d-\d\dT\d\d:\d\d:\d\d
-
     keys.forEach((key) => {
-      obj[key] = data[key] ? data[key] : "";
+      let value = data[key];
+
+      this._filters.forEach((filter) => {
+        if (filter.match(value)) value = filter.run(value);
+      });
+
+      obj[key] = value ? value : "";
     });
 
     console.log(obj);
-    this.form.setValue(obj);
+    // this.form.setValue(obj);
+
+    return obj;
   }
 
   protected runDataServices(data): Promise<boolean> {
     return new Promise((resolve, rejects) => {
-      for (let i = 0; i < this.dataServices.length; i++) {
-        const service = this.dataServices[i];
+      for (let i = 0; i < this._dataServices.length; i++) {
+        const service = this._dataServices[i];
 
         service.save(this.formMarker, data).then((data) => {
           console.log(data);
@@ -78,7 +75,7 @@ export class FormManager {
   }
 
   private isLastLoopIteration(index: number) {
-    return index == this.dataServices.length - 1;
+    return index == this._dataServices.length - 1;
   }
 
   private getDataFromForm() {

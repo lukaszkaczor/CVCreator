@@ -1,3 +1,4 @@
+import { DateFilter } from "./../../../Utilities/DateFilter";
 import { ApiManager } from "./../../../Utilities/ApiManager";
 import { CookiesManager } from "./../../../Utilities/CookiesManager";
 import { CookieService } from "ngx-cookie-service";
@@ -17,11 +18,11 @@ export class PersonalDataFormComponent extends FormManager implements OnInit {
     cookie: CookieService,
     private dataService: PersonalDataService
   ) {
-    super(
-      "personalData",
-      new CookiesManager(cookie),
-      new ApiManager(dataService)
-    );
+    super({
+      formMarker: "personalData",
+      dataServices: [new CookiesManager(cookie), new ApiManager(dataService)],
+      dataFilters: [new DateFilter()],
+    });
 
     this.form = builder.group({
       firstName: ["", [Validators.required, Validators.minLength(2)]],
