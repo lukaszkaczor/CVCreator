@@ -1,7 +1,8 @@
 import { IDataManager } from "./Interfaces/IDataManger";
 import { CookieService } from "ngx-cookie-service";
 
-export class CookiesManager implements IDataManager {
+// export class CookiesManager implements IDataManager {
+export class CookiesManager {
   constructor(private cookie: CookieService) {}
 
   async get(key?: any): Promise<any> {

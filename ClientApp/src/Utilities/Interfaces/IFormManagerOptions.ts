@@ -5,4 +5,6 @@ export interface IFormManagerOptions {
   formMarker: string;
   dataServices?: IDataManager[];
   dataFilters?: IDataFilter[];
+
+  dataService: IDataManager;
 }

@@ -33,12 +33,12 @@ namespace CvCreator.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Address>> Post(Address todoItem)
+        public async Task<ActionResult<Address>> Post(Address address)
         {
-            _context.Addresses.Add(todoItem);
+            _context.Addresses.Add(address);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(Get), new { id = todoItem.Id }, todoItem);
+            return CreatedAtAction(nameof(Get), new { id = address.Id }, address);
         }
 
         [HttpPut("{id}")]

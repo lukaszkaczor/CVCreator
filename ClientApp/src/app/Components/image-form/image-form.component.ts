@@ -26,15 +26,19 @@ export class ImageFormComponent implements OnInit {
 
   ngOnInit() {}
 
+  //temp
   async onFileSelected(event) {
     if (this._converter.ImageIsNull(event)) {
       console.log("null");
       return 0;
     }
 
-    this.image.nativeElement.src = await this._converter.Encode(
-      event.target.files[0]
-    );
+    let ss = await this._converter.Encode(event.target.files[0]);
+
+    this.image.nativeElement.src = ss;
+    console.log(ss);
+    localStorage.setItem("img", ss);
+
     this.showDeleteButton = true;
   }
 

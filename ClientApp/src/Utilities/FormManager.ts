@@ -5,15 +5,19 @@ import { FormGroup } from "@angular/forms";
 
 export class FormManager {
   private formMarker: string;
-  private _dataServices: IDataManager[];
+  // private _dataServices: IDataManager[];
   private _filters: IDataFilter[] = [];
   protected form: FormGroup;
   protected formIsSubmitted: boolean = false;
   public waitingForResponse = false;
 
+  //
+  private _dataService: IDataManager;
+
   constructor(options: IFormManagerOptions) {
     this.formMarker = options.formMarker;
-    this._dataServices = options.dataServices ? options.dataServices : [];
+    this._dataService = options.dataService;
+    // this._dataServices = options.dataServices ? options.dataServices : [];
     this._filters = options.dataFilters ? options.dataFilters : [];
   }
 
@@ -27,10 +31,28 @@ export class FormManager {
 
     this.waitingForResponse = true;
 
-    this.runDataServices(this.getDataFromForm()).then((response: boolean) => {
-      this.waitingForResponse = false;
-      console.log(response);
-    });
+    // this.runDataServices(this.getDataFromForm()).then((response: boolean) => {
+    //   this.waitingForResponse = false;
+    //   console.log(this.waitingForResponse);
+
+    //   console.log(response);
+    // });
+
+    // this._dataService
+    //   .save(this.formMarker, this.getDataFromForm())
+    //   .then((response) => {
+    //     this.waitingForResponse = false;
+    //     console.log(response);
+    //   });
+
+    this._dataService.save(this.formMarker, this.getDataFromForm()).subscribe(
+      (data) => console.log(data),
+      (error) => {
+        console.log(error);
+        this.waitingForResponse = false;
+      },
+      () => (this.waitingForResponse = false)
+    );
   }
 
   //temp
@@ -60,26 +82,26 @@ export class FormManager {
     return obj;
   }
 
-  protected runDataServices(data): Promise<boolean> {
-    return new Promise((resolve, rejects) => {
-      for (let i = 0; i < this._dataServices.length; i++) {
-        const service = this._dataServices[i];
+  // protected runDataServices(data): Promise<boolean> {
+  //   return new Promise((resolve, rejects) => {
+  //     for (let i = 0; i < this._dataServices.length; i++) {
+  //       const service = this._dataServices[i];
 
-        service.save(this.formMarker, data).then((data) => {
-          console.log(data);
+  //       service.save(this.formMarker, data).then((data) => {
+  //         console.log(data);
 
-          if (this.isLastLoopIteration(i)) resolve(true);
-        });
-      }
-    });
-  }
+  //         if (this.isLastLoopIteration(i)) resolve(true);
+  //       });
+  //     }
+  //   });
+  // }
 
-  private isLastLoopIteration(index: number) {
-    return index == this._dataServices.length - 1;
-  }
+  // private isLastLoopIteration(index: number) {
+  //   return index == this._dataServices.length - 1;
+  // }
 
   private getDataFromForm() {
-    return JSON.stringify(this.form.value);
+    return this.form.value;
   }
 
   protected formIsValid(): boolean {

@@ -38,6 +38,9 @@ namespace CVCreator.Controllers
             _context.CvList.Add(todoItem);
             await _context.SaveChangesAsync();
 
+            Thread.Sleep(500);
+
+
             return CreatedAtAction(nameof(Get), new { id = todoItem.Id }, todoItem);
         }
 
