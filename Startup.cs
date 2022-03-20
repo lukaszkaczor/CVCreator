@@ -1,6 +1,9 @@
+using System.Runtime.Serialization;
+using System.Runtime.InteropServices;
 using CvCreator.Data;
 using CvCreator.Models;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -11,6 +14,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace CvCreator
 {
@@ -35,13 +40,50 @@ namespace CvCreator
             services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
+
+
             services.AddIdentityServer()
                 .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
 
-            services.AddAuthentication()
-                .AddIdentityServerJwt();
+            // services.AddAuthentication()
+            //     .AddIdentityServerJwt();
+
+
+            /// test
+            services.AddAuthentication(opt =>
+            {
+                opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+
+
+
+            }).AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+
+                    ValidIssuer = "https://https://localhost:5001/",
+                    ValidAudience = "https://https://localhost:5001/",
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("securitykeysdjfshdfjhsdfdfjhsdjf"))
+                };
+            }).AddIdentityServerJwt();
+
+            // services.AddCors(options =>
+            // {
+            //     options.AddPolicy("EnableCORS", builder =>
+            //     {
+            //         builder.AllowAnyOrigin()
+            //         .AllowAnyHeader()
+            //         .AllowAnyMethod();
+            //     });
+            // });
+
             services.AddControllersWithViews();
-            services.AddRazorPages();
+            // services.AddRazorPages();
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
@@ -73,8 +115,12 @@ namespace CvCreator
 
             app.UseRouting();
 
+            //test
+            // app.UseCors("EnableCORS");
+            //testend
+
             app.UseAuthentication();
-            app.UseIdentityServer();
+            // app.UseIdentityServer();
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {

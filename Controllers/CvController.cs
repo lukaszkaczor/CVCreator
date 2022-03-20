@@ -5,6 +5,7 @@ using CvCreator.Data;
 using CvCreator.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CVCreator.Controllers
 {
@@ -19,8 +20,8 @@ namespace CVCreator.Controllers
             _context = context;
         }
 
-        [HttpGet]
-        public async Task<IEnumerable<CurriculumVitae>> Get() => await _context.CvList.ToListAsync();
+        // [HttpGet]
+        // public async Task<IEnumerable<CurriculumVitae>> Get() => await _context.CvList.ToListAsync();
 
         [HttpGet("{id}")]
         public async Task<ActionResult<CurriculumVitae>> Get(int id)
@@ -43,6 +44,20 @@ namespace CVCreator.Controllers
 
             return CreatedAtAction(nameof(Get), new { id = todoItem.Id }, todoItem);
         }
+
+
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        public async Task<IEnumerable<CurriculumVitae>> Get() => new List<CurriculumVitae>(){
+            new CurriculumVitae{
+                Id = 1,
+                Name = "tes"
+            },
+            new CurriculumVitae{
+                Id = 55,
+                Name = "sss"
+            }
+        };
 
     }
 }

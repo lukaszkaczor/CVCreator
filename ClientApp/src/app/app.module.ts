@@ -1,5 +1,6 @@
+import { AuthGuard } from "./Guards/auth.guard";
 import { AppRoutingModule } from "./app-routing.module";
-import { BrowserModule } from "@angular/platform-browser";
+import { BrowserModule, disableDebugTools } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
@@ -25,6 +26,12 @@ import { BasicInfoComponent } from "./Components/basic-info/basic-info.component
 import { SocialMediaFormComponent } from "./Components/social-media-form/social-media-form.component";
 import { ExperiencePageComponent } from "./Components/experience-page/experience-page.component";
 import { WorkExperienceComponent } from "./Components/work-experience/work-experience.component";
+import { LoginComponent } from "./Components/login/login.component";
+import { JwtModule } from "@auth0/angular-jwt";
+
+export function tokenGetter() {
+  return localStorage.getItem("jwt");
+}
 
 @NgModule({
   declarations: [
@@ -44,6 +51,7 @@ import { WorkExperienceComponent } from "./Components/work-experience/work-exper
     SocialMediaFormComponent,
     ExperiencePageComponent,
     WorkExperienceComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: "ng-cli-universal" }),
@@ -61,10 +69,18 @@ import { WorkExperienceComponent } from "./Components/work-experience/work-exper
     //     canActivate: [AuthorizeGuard],
     //   },
     // ]),
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        allowedDomains: ["localhost:5001"],
+        disallowedRoutes: [],
+      },
+    }),
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true },
     CookieService,
+    AuthGuard,
   ],
   bootstrap: [AppComponent],
 })

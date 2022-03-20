@@ -1,6 +1,8 @@
 <div class="wrapper">
   <app-progressbar></app-progressbar>
 
+  <h1 *ngFor="let item of list">{{ item.name }}</h1>
+
   <app-image-form></app-image-form>
 
   <app-personal-data-form></app-personal-data-form>

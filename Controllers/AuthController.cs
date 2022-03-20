@@ -23,13 +23,18 @@ namespace CVCreator.Controllers
 
             if (user.Username == "asd" && user.Password == "asd")
             {
-                var secretkey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("securitykey"));
+                var secretkey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("securitykeysdjfshdfjhsdfdfjhsdjf"));
                 var signingCreditentials = new SigningCredentials(secretkey, SecurityAlgorithms.HmacSha256);
+
+                var claims = new List<Claim>(){
+                  new Claim(ClaimTypes.Name, user.Username),
+                  new Claim(ClaimTypes.Role, "Admin")
+                };
 
                 var tokenOptions = new JwtSecurityToken(
                     issuer: "https://https://localhost:5001/",
                     audience: "https://https://localhost:5001/",
-                    claims: new List<Claim>(),
+                    claims: claims,
                     expires: DateTime.Now.AddMinutes(60),
                     signingCredentials: signingCreditentials
                 );
